@@ -1,0 +1,1 @@
+D:\Projects\Flutter\intelligent_admissions_android_studio\intelligent_admissions_v2\build\app\intermediates\cxx\Debug\4f271a1y\obj\armeabi-v7a
