@@ -58,7 +58,9 @@ class _SignupScreenState extends State<SignupScreen> {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
     final retype = _retypeController.text;
+    // Strip dashes for pure-digit length check (13 digits)
     final cnic = _cnicController.text.trim();
+    final cnicDigits = cnic.replaceAll('-', '');
 
     if (name.isEmpty || email.isEmpty || password.isEmpty) {
       _showSnackBar('Please fill in all required fields.');
@@ -68,8 +70,8 @@ class _SignupScreenState extends State<SignupScreen> {
       _showSnackBar('Passwords do not match.');
       return;
     }
-    if (cnic.isNotEmpty && cnic.length < 15) {
-      _showSnackBar('Please enter a valid CNIC number.');
+    if (cnic.isNotEmpty && cnicDigits.length < 13) {
+      _showSnackBar('Please enter a valid 13-digit CNIC number.');
       return;
     }
     if (!_agreeToTerms) {
@@ -80,10 +82,24 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await _authService.signUp(name: name, email: email, password: password);
+      // Step 1: Create Firebase Auth account and get the credential
+      final credential = await _authService.signUp(
+        name: name,
+        email: email,
+        password: password,
+      );
 
-      // Save extended profile to Firestore
-      await _profileService.createProfile(
+      // Step 2: Use the returned UID directly — avoids race condition
+      // where _auth.currentUser might not be set yet in UserProfileService
+      final uid = credential.user?.uid;
+      if (uid == null) {
+        _showSnackBar('Account created but profile could not be saved. Please try again.');
+        return;
+      }
+
+      // Step 3: Save extended profile to Firestore using the explicit UID
+      await _profileService.createProfileForUid(
+        uid: uid,
         name: name,
         email: email,
         cnic: cnic,
@@ -97,8 +113,8 @@ class _SignupScreenState extends State<SignupScreen> {
       );
     } on FirebaseAuthException catch (e) {
       _showSnackBar(AuthService.friendlyError(e));
-    } catch (_) {
-      _showSnackBar('An unexpected error occurred.');
+    } catch (e) {
+      _showSnackBar('Error: ${e.toString()}');
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

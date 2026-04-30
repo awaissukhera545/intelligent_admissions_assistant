@@ -13,7 +13,30 @@ class UserProfileService {
   DocumentReference? get _userDoc =>
       _uid != null ? _db.collection('users').doc(_uid) : null;
 
-  /// Save profile data during signup
+  /// Save profile data during signup using an explicit UID.
+  /// Use this right after account creation to avoid a race condition
+  /// where [_auth.currentUser] may not be set yet.
+  Future<void> createProfileForUid({
+    required String uid,
+    required String name,
+    required String email,
+    required String cnic,
+    required String intermediateDiscipline,
+    String? profilePhotoUrl,
+  }) async {
+    final docRef = _db.collection('users').doc(uid);
+    await docRef.set({
+      'name': name,
+      'email': email,
+      'cnic': cnic,
+      'intermediateDiscipline': intermediateDiscipline,
+      'profilePhotoUrl': profilePhotoUrl ?? '',
+      'createdAt': FieldValue.serverTimestamp(),
+    });
+  }
+
+  /// Save profile data during signup (uses currentUser UID — may be null on race).
+  /// Prefer [createProfileForUid] for signup flows.
   Future<void> createProfile({
     required String name,
     required String email,
