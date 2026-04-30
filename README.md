@@ -1,213 +1,67 @@
-# 🎓 Intelligent Admissions Assistant
+# Intelligent Admissions Assistant (IAA) - v2
 
-A Flutter mobile application designed to guide students through the **UAF Burewala Campus** university admissions process intelligently. The app provides program exploration, eligibility calculation, AI-powered guidance, application tracking, and seamless Firebase-backed user management.
-
----
-
-## ✨ Features
-
-| Feature | Description |
-|---------|-------------|
-| 🔐 **Authentication** | Firebase Auth — sign up, login, password reset with persistent session |
-| 👤 **User Profile** | Extended profile with CNIC, intermediate discipline, photo |
-| 🏠 **Home Dashboard** | Welcome banner, quick actions, program cards, deadlines & notifications |
-| 🔎 **Program Explorer** | Browse & filter UAF degree programs by faculty/discipline |
-| 📋 **Degree Detail** | Full program info — duration, fee, eligibility, aggregate formula |
-| 📐 **Eligibility Calculator** | Dual-mode: check eligibility & calculate aggregate score |
-| 📊 **Application Tracker** | Track admission application status step-by-step |
-| 🤖 **AI Chat Assistant** | AI-powered chat to answer admissions questions |
-| ⚙️ **Settings** | Profile management, notifications, terms & privacy |
+An AI-driven automation ecosystem designed to streamline the university admission process for **UAF Burewala Campus**. This project integrates mobile technology, low-code automation, and Artificial Intelligence to transform a manual workflow into a digital-first experience.
 
 ---
 
-## 📱 Screens
+## ⚠️ Proprietary Notice & License
+**Copyright (c) 2026 Muhammad Awais Rafique. All rights reserved.**
 
-| Screen | File |
-|--------|------|
-| Login | `login_screen.dart` |
-| Sign Up (with CNIC + Discipline) | `signup_screen.dart` |
-| Forgot Password | `forgot_password_screen.dart` |
-| Home Dashboard | `home_screen.dart` |
-| Program Explorer | `program_explore_screen.dart` |
-| Degree Detail | `degree_detail_screen.dart` |
-| Eligibility & Aggregate Calculator | `eligibility_screen.dart` |
-| Application Tracker | `application_tracker_screen.dart` |
-| AI Chat Assistant | `ai_chat_screen.dart` |
-| Settings | `settings_screen.dart` |
-| Terms & Privacy | `terms_privacy_screen.dart` |
+This software and its associated documentation are the exclusive intellectual property of the author. 
+- **Institutional Use:** Unauthorized use by any educational institution for administrative purposes is strictly prohibited without a formal licensing agreement.
+- **Academic Use:** This repository is public for portfolio showcase and academic evaluation only.
+- **Commercial Use:** Requires explicit written consent.
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Overview
+The **Intelligent Admissions Assistant** solves the common "bottleneck" during admission cycles: manual data entry, slow merit list generation, and repetitive student inquiries. 
 
-### Prerequisites
-
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) **3.19+** (Dart ≥ 3.3.0)
-- [Android Studio](https://developer.android.com/studio) **Hedgehog (2023.1.1)** or later
-- Flutter & Dart plugins installed in Android Studio
-- Android SDK (API 21+)
-- A Firebase project with **Authentication** and **Cloud Firestore** enabled
-
-### Setup Steps
-
-#### 1. Open in Android Studio
-```
-File → Open → Select the `intelligent_admissions_v2` folder
-```
-
-#### 2. Install Flutter & Dart Plugins
-```
-Android Studio → Settings → Plugins → Search "Flutter" → Install
-```
-
-#### 3. Configure Firebase
-- Create a project at [Firebase Console](https://console.firebase.google.com/)
-- Enable **Email/Password** sign-in under Authentication
-- Create a **Cloud Firestore** database
-- Run `flutterfire configure` and replace `lib/firebase_options.dart` with the generated file
-
-#### 4. Get Dependencies
-```bash
-flutter pub get
-```
-Or click **"Pub get"** in the banner that appears in `pubspec.yaml`.
-
-#### 5. Configure an Emulator
-```
-Tools → Device Manager → Create Device → Pixel 6 → Android 13 (API 33)
-```
-
-#### 6. Run the App
-```bash
-flutter run
-```
-Or select your device in Android Studio and click **▶ Run** (Shift+F10).
+### Key Problems Solved:
+* **Manual Verification:** Automates the cross-checking of student documents.
+* **Inquiry Overload:** Uses an AI-integrated backend to handle common admission FAQs.
+* **Data Inconsistency:** Ensures student records are synced across mobile and administrative databases.
 
 ---
 
-## 📁 Project Structure
+## 🛠 Tech Stack
+This project utilizes a modern **Multi-Agent Architecture**:
 
-```
-intelligent_admissions_v2/
-├── android/                            # Android platform files
-├── ios/                                # iOS platform files
-│
-├── lib/
-│   ├── main.dart                       # App entry point + Firebase init + auth routing
-│   ├── firebase_options.dart           # FlutterFire generated config
-│   │
-│   ├── data/
-│   │   └── uaf_programs_data.dart      # All UAF program data, fees, eligibility rules
-│   │
-│   ├── models/
-│   │   ├── degree_program_model.dart   # DegreeProgram data model
-│   │   ├── notification_model.dart     # In-app notification model
-│   │   ├── program_model.dart          # Lightweight program model
-│   │   └── deadline_model.dart         # Admission deadline model
-│   │
-│   ├── screens/
-│   │   ├── login_screen.dart           # Firebase email/password login
-│   │   ├── signup_screen.dart          # Registration (name, email, CNIC, discipline)
-│   │   ├── forgot_password_screen.dart # Password reset via email
-│   │   ├── home_screen.dart            # Dashboard with programs & deadlines
-│   │   ├── program_explore_screen.dart # Filterable program browser
-│   │   ├── degree_detail_screen.dart   # Program detail view
-│   │   ├── eligibility_screen.dart     # Eligibility checker & aggregate calculator
-│   │   ├── application_tracker_screen.dart # Admission status tracker
-│   │   ├── ai_chat_screen.dart         # AI-powered admissions chatbot
-│   │   ├── settings_screen.dart        # Profile & app settings
-│   │   └── terms_privacy_screen.dart   # Terms of service & privacy policy
-│   │
-│   ├── services/
-│   │   ├── auth_service.dart           # Firebase Auth wrapper (sign up, login, reset)
-│   │   └── user_profile_service.dart   # Firestore user profile CRUD
-│   │
-│   ├── utils/
-│   │   └── app_colors.dart             # Centralized color palette
-│   │
-│   └── widgets/
-│       ├── app_button.dart             # Reusable primary button
-│       ├── app_text_field.dart         # Reusable styled input field
-│       └── logo_widget.dart            # Animated UAF logo with sun rays
-│
-├── test/
-│   └── widget_test.dart
-│
-├── pubspec.yaml                        # Dependencies & assets
-├── firebase.json                       # Firebase hosting config
-├── analysis_options.yaml               # Linting rules
-└── .gitignore
-```
+*   **Frontend:** [Flutter](https://flutter.dev/) (Cross-platform Mobile UI)
+*   **Orchestration:** [n8n](https://n8n.io/) (Workflow Automation & Logic Engine)
+*   **Intelligence:** Integrated AI Models (LLMs) for document parsing and assistant logic.
+*   **Database:** Firebase / PostgreSQL (Real-time data synchronization)
 
 ---
 
-## 📦 Dependencies
+## 🏗 System Architecture
+The system follows a decoupled architecture where the mobile app acts as a thin client, and the "intelligence" resides in a secure automation layer:
 
-```yaml
-firebase_core: ^3.0.0          # Firebase core initialization
-firebase_auth: ^5.0.0          # Email/password authentication
-cloud_firestore: ^5.0.0        # User profile & data storage
-google_fonts: ^6.2.1           # Poppins typography
-image_picker: ^1.0.0           # Profile photo selection
-cupertino_icons: ^1.0.8        # iOS-style icons
-```
+1. **User Tier:** Flutter app collects student data and documents.
+2. **Logic Tier:** n8n processes incoming webhooks, validates data, and triggers AI analysis.
+3. **Intelligence Tier:** AI models evaluate documents and provide instant feedback via the assistant.
+4. **Data Tier:** Centralized storage for administrative merit list generation.
 
 ---
 
-## 🗄️ Firestore Data Model
-
-### `users/{uid}` — User Profile Document
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `name` | String | User's full name |
-| `email` | String | Registered email address |
-| `cnic` | String | CNIC in format `XXXXX-XXXXXXX-X` |
-| `intermediateDiscipline` | String | e.g. Pre-Medical, Pre-Engineering, ICS |
-| `profilePhotoUrl` | String | URL of uploaded profile photo |
-| `createdAt` | Timestamp | Account creation timestamp |
+## ✨ Features (v2)
+- ✅ **Smart Application Submission:** Interactive UI for error-free form filling.
+- ✅ **AI Assistant:** Real-time help for admission-related queries.
+- ✅ **Automated Notifications:** Instant updates on merit list standing.
+- ✅ **Document Scanner:** Integrated camera functionality for document uploading.
 
 ---
 
-## 🎨 Design System
+## 📦 Installation & Setup
+*Note: This repository does not contain private API keys or n8n workflow credentials.*
 
-| Token | Value |
-|-------|-------|
-| Primary | `#9333EA` (Purple) |
-| Gold Accent | `#F59E0B` |
-| Background | `#F5F5F5` |
-| Text Dark | `#1F2937` |
-| Text Grey | `#9CA3AF` |
-| Font | **Poppins** (via Google Fonts) |
+1. **Prerequisites:**
+   - Flutter SDK (latest version)
+   - n8n instance (Self-hosted or Cloud)
 
----
-
-## 🔧 Troubleshooting
-
-| Problem | Solution |
-|---------|----------|
-| **"Flutter SDK not found"** | `File → Settings → Languages & Frameworks → Flutter → Set SDK path` |
-| **Gradle sync failed** | `File → Sync Project with Gradle Files` |
-| **Emulator not showing** | `Tools → Device Manager → Start emulator` |
-| **Firebase not initialized** | Ensure `google-services.json` is in `android/app/` and `firebase_options.dart` is present |
-| **Account created but no Firestore data** | Fixed — profile now saved using explicit UID from `UserCredential` |
-| **CNIC not saving** | Enter full 13 digits in format `XXXXX-XXXXXXX-X` |
-
----
-
-## 📋 Version History
-
-| Version | Changes |
-|---------|---------|
-| `1.0.0` | Initial release — Login, Signup, Home |
-| `1.1.0` | Added Program Explorer, Degree Detail, Eligibility Calculator |
-| `1.2.0` | Added AI Chat, Application Tracker, Settings, Terms & Privacy |
-| `1.3.0` | Extended signup with CNIC & Intermediate Discipline fields; fixed Firestore profile save race condition |
-
----
-
-## 👨‍💻 Developed For
-
-**University of Agriculture Faisalabad (UAF) — Burewala Campus**
-
-> Helping prospective students navigate admissions with confidence.
+2. **Setup:**
+   ```bash
+   git clone [https://github.com/awaissukhera545/intelligent_admissions_v2.git](https://github.com/awaissukhera545/intelligent_admissions_v2.git)
+   cd intelligent_admissions_v2
+   flutter pub get
+   flutter run
