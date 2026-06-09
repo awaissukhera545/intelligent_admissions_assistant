@@ -44,11 +44,10 @@ The system follows a decoupled architecture where the mobile app acts as a thin 
 
 ---
 
-## ✨ Features (v2)
+## ✨ Features
 - ✅ **Smart Application Submission:** Interactive UI for error-free form filling.
 - ✅ **AI Assistant:** Real-time help for admission-related queries.
 - ✅ **Automated Notifications:** Instant updates on merit list standing.
-- ✅ **Document Scanner:** Integrated camera functionality for document uploading.
 
 ---
 
@@ -61,7 +60,7 @@ The system follows a decoupled architecture where the mobile app acts as a thin 
 
 2. **Setup:**
    ```bash
-   git clone [https://github.com/awaissukhera545/intelligent_admissions_v2.git](https://github.com/awaissukhera545/intelligent_admissions_v2.git)
-   cd intelligent_admissions_v2
+   git clone [https://github.com/awaissukhera545/intelligent_admissions_assistant.git](https://github.com/awaissukhera545/intelligent_admissions_assistant.git)
+   cd intelligent_admissions_assistant
    flutter pub get
    flutter run
