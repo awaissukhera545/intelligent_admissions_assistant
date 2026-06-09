@@ -1,4 +1,4 @@
-# Intelligent Admissions Assistant (IAA) - v2
+# Intelligent Admissions Assistant (IAA)
 
 An AI-driven automation ecosystem designed to streamline the university admission process for **UAF Burewala Campus**. This project integrates mobile technology, low-code automation, and Artificial Intelligence to transform a manual workflow into a digital-first experience.
 
